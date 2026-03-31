@@ -43,7 +43,7 @@ function validateEnv() {
 
   if (missing.length > 0) {
     throw new Error(
-      `Missing required environment values: ${missing.join(', ')}. Set them in src/cerebrum_frontend/.env`
+      `Missing required environment values: ${missing.join(', ')}. Set them in .env`
     );
   }
 }

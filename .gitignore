@@ -12,8 +12,8 @@
 
 # generated files
 **/declarations/
-!src/cerebrum_frontend/src/declarations/
-!src/cerebrum_frontend/src/declarations/**
+!src/declarations/
+!src/declarations/**
 
 # rust
 target/
@@ -31,16 +31,14 @@ dist/
 .env.local
 .env.*.local
 .env.production
-.env.mainnet#src/cerebrum_frontend/.env.local
-src/cerebrum_frontend/.env.production
+.env.mainnet
 .env.new
 
 # Generated declarations
-src/cerebrum_frontend/src/declarations/
+src/declarations/
 declarations/
 canister_ids.json
 mainnet_identity_backup.pem
-.env.mainnet
 
 # Backup files and sensitive data
 backups/
