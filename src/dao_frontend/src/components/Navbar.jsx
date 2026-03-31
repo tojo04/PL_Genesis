@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Brain, Database, KeyRound, ShieldCheck, Wallet, Lock } from 'lucide-react';
+import { Brain, Database, KeyRound, ShieldCheck, Wallet, Lock, BarChart3 } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
 const navItems = [
@@ -8,6 +8,7 @@ const navItems = [
   { name: 'Upload', href: '/upload', icon: Brain },
   { name: 'Consent', href: '/consent', icon: KeyRound },
   { name: 'Access', href: '/access', icon: Lock },
+  { name: 'Metrics', href: '/metrics', icon: BarChart3 },
   { name: 'Access Log', href: '/access-log', icon: ShieldCheck },
 ];
 

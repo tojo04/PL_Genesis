@@ -4,6 +4,49 @@ import {
   grantAccessPolicy,
   revokeAccessPolicy,
 } from '../src/services/litAccess.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+function loadDotEnv() {
+  const currentDir = path.dirname(fileURLToPath(import.meta.url));
+  const envPath = path.resolve(currentDir, '..', '.env');
+
+  if (!fs.existsSync(envPath)) {
+    return;
+  }
+
+  const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) {
+      continue;
+    }
+
+    const equalsIndex = trimmed.indexOf('=');
+    if (equalsIndex <= 0) {
+      continue;
+    }
+
+    const key = trimmed.slice(0, equalsIndex).trim();
+    const value = trimmed.slice(equalsIndex + 1).trim();
+
+    if (!(key in process.env)) {
+      process.env[key] = value;
+    }
+  }
+}
+
+function validateEnv() {
+  const required = ['VITE_STORACHA_TOKEN'];
+  const missing = required.filter((key) => !process.env[key]);
+
+  if (missing.length > 0) {
+    throw new Error(
+      `Missing required environment values: ${missing.join(', ')}. Set them in src/dao_frontend/.env`
+    );
+  }
+}
 
 function buildSimulatedEEG() {
   const now = Date.now();
@@ -23,6 +66,9 @@ function buildSimulatedEEG() {
 }
 
 async function run() {
+  loadDotEnv();
+  validateEnv();
+
   const granteeWallet = process.env.DEMO_GRANTEE_WALLET || '0xResearchWallet';
   const purpose = process.env.DEMO_PURPOSE || 'sleep-study';
   const durationHours = Number(process.env.DEMO_DURATION_HOURS || '24');

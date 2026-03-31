@@ -6,13 +6,18 @@ import UploadPage from './components/UploadPage';
 import ConsentPage from './components/ConsentPage';
 import AccessPage from './components/AccessPage';
 import AccessLogPage from './components/AccessLogPage';
+import MetricsPage from './components/MetricsPage';
 import Navbar from './components/Navbar';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTop from './components/ScrollToTop';
 import BackgroundParticles from './components/BackgroundParticles';
+import FlowConnectGate from './components/FlowConnectGate';
+import { useWallet } from './context/WalletContext';
 import './app.css';
 
 function App() {
+  const { isAuthenticated } = useWallet();
+
   return (
     <ErrorBoundary>
       <Router>
@@ -28,11 +33,12 @@ function App() {
               <Navbar />
               <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/vault" element={<VaultDashboard />} />
+                <Route path="/vault" element={isAuthenticated ? <VaultDashboard /> : <FlowConnectGate />} />
                 <Route path="/upload" element={<UploadPage />} />
                 <Route path="/consent" element={<ConsentPage />} />
                 <Route path="/access" element={<AccessPage />} />
                 <Route path="/access-log" element={<AccessLogPage />} />
+                <Route path="/metrics" element={<MetricsPage />} />
               </Routes>
             </div>
           </div>

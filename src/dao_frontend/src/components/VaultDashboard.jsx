@@ -10,7 +10,7 @@ const records = [
 ];
 
 export default function VaultDashboard() {
-  const { isAuthenticated, address, connectWallet, isConnecting } = useWallet();
+  const { address } = useWallet();
 
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-4 pb-20 pt-24 sm:px-6">
@@ -20,22 +20,9 @@ export default function VaultDashboard() {
           Track encrypted records, active consents, and revocation controls from one place.
         </p>
 
-        {!isAuthenticated ? (
-          <div className="mt-4 rounded-lg border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-100">
-            Connect a Flow wallet to bind consent rules to your wallet identity.
-            <button
-              onClick={connectWallet}
-              disabled={isConnecting}
-              className="ml-3 rounded-md bg-amber-300 px-3 py-1 font-semibold text-black disabled:opacity-70"
-            >
-              {isConnecting ? 'Connecting...' : 'Connect'}
-            </button>
-          </div>
-        ) : (
-          <div className="mt-4 rounded-lg border border-teal-500/30 bg-teal-500/10 p-4 text-sm text-teal-100">
-            Connected as {address}
-          </div>
-        )}
+        <div className="mt-4 rounded-lg border border-teal-500/30 bg-teal-500/10 p-4 text-sm text-teal-100">
+          Connected as {address}
+        </div>
       </section>
 
       <section className="mb-6 grid gap-4 md:grid-cols-3">
