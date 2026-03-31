@@ -1,0 +1,395 @@
+Here’s a practical build sheet for NeuraVault.
+
+It is scoped for a hackathon MVP and aligned with the Neurotech track requirement to use at least one sponsor API/SDK, with strong fit to secure neural data, sovereignty, and privacy-preserving collaboration.
+
+NeuraVault build sheet
+1. Project goal
+
+Build a web app where a user can:
+
+connect wallet
+upload a neural-data JSON file
+encrypt it
+store it on Storacha/Filecoin
+grant access to another wallet
+revoke access later
+show authorized access succeeds and revoked access fails
+
+That is the full MVP.
+
+2. Final stack
+Frontend
+Next.js
+TypeScript
+Tailwind CSS
+shadcn/ui
+Wallet
+Flow Wallet
+FCL
+Storage
+Storacha or Filecoin upload SDK
+Access control
+Lit Protocol
+Data
+mock neural JSON files
+Optional
+simple Flow onchain log for grant/revoke events
+3. Core user stories
+Owner
+I connect my wallet
+I upload my neural dataset
+I store it securely
+I grant access to a researcher
+I revoke access later
+Researcher
+I connect my wallet
+I request or attempt access
+If approved, I can decrypt and view the dataset
+If revoked, I can no longer access it
+4. MVP feature checklist
+Must-have
+wallet connect
+upload neural JSON
+encrypt before upload
+upload encrypted file to Storacha/Filecoin
+save CID + owner
+grant access to another wallet
+authorized decryption
+revoke access
+blocked access after revocation
+Nice-to-have
+expiry-based permissions
+purpose field like “research only”
+activity log
+charts for neural data
+onchain consent event log
+5. Pages to build
+/
+
+Landing page
+
+project name
+one-line pitch
+connect wallet button
+CTA to dashboard
+/dashboard
+connected wallet
+list of uploaded datasets
+status badges
+quick actions:
+upload
+manage consent
+test access
+/upload
+upload JSON file
+preview parsed data
+encrypt and upload
+show CID after storage
+/consent
+pick dataset
+enter allowed wallet address
+optional expiry
+grant access
+revoke access
+/access
+connect as second wallet
+select dataset
+try decrypt
+show success or denied
+6. Data model
+Neural dataset metadata
+type NeuralDataset = {
+  id: string
+  ownerWallet: string
+  cid: string
+  fileName: string
+  uploadedAt: string
+  encrypted: boolean
+  accessList: AccessGrant[]
+}
+Access grant
+type AccessGrant = {
+  wallet: string
+  purpose?: string
+  expiresAt?: string
+  status: "active" | "revoked"
+}
+Mock neural session
+type NeuralSession = {
+  sessionId: string
+  timestamp: string
+  alphaBand: number
+  betaBand: number
+  thetaBand: number
+  focusScore: number
+  stressScore: number
+  device: string
+}
+7. Sample mock data
+
+Use 3–5 files like:
+
+{
+  "sessionId": "sess_001",
+  "timestamp": "2026-03-30T17:10:00Z",
+  "alphaBand": 0.61,
+  "betaBand": 0.42,
+  "thetaBand": 0.28,
+  "focusScore": 0.78,
+  "stressScore": 0.31,
+  "device": "simulated_eeg_v1"
+}
+
+Label them clearly as simulated neural telemetry.
+
+8. Folder structure
+neuravault/
+  app/
+    page.tsx
+    dashboard/page.tsx
+    upload/page.tsx
+    consent/page.tsx
+    access/page.tsx
+  components/
+    connect-wallet.tsx
+    dataset-card.tsx
+    upload-form.tsx
+    consent-form.tsx
+    access-panel.tsx
+    status-badge.tsx
+  lib/
+    fcl.ts
+    lit.ts
+    storage.ts
+    crypto.ts
+    sample-data.ts
+    types.ts
+  public/
+  styles/
+9. Module responsibilities
+lib/fcl.ts
+Flow wallet config
+connect/disconnect
+get current wallet address
+lib/crypto.ts
+file parsing
+symmetric encryption
+decryption helper
+lib/lit.ts
+create Lit access conditions
+encrypt/decrypt symmetric key
+update conditions for revoke
+lib/storage.ts
+upload encrypted blob to Storacha/Filecoin
+return CID
+fetch encrypted file by CID
+lib/types.ts
+dataset and grant types
+10. Build order
+Step 1: Project setup
+create Next.js app
+install Tailwind
+install shadcn/ui
+create routes
+make basic layout and nav
+Step 2: Wallet connection
+set up FCL
+connect Flow Wallet
+show connected address in navbar and dashboard
+
+Done when: user can connect and see wallet address.
+
+Step 3: Mock data and upload UI
+make upload form
+accept .json
+parse and preview fields
+validate structure
+
+Done when: a sample JSON file previews correctly.
+
+Step 4: Encryption
+encrypt uploaded JSON in browser
+output encrypted blob/string
+
+Done when: raw file becomes encrypted before storage.
+
+Step 5: Storacha/Filecoin upload
+upload encrypted payload
+return CID
+show CID in UI
+store dataset metadata in local state or simple DB
+
+Done when: encrypted file is stored and CID is visible.
+
+Step 6: Lit access control
+create access condition tied to allowed wallet
+protect encryption key
+store access configuration with dataset
+
+Done when: dataset has owner and allowed wallet policy.
+
+Step 7: Consent manager
+dataset list
+add wallet to access list
+optional purpose + expiry
+revoke existing wallet
+
+Done when: owner can grant and revoke through UI.
+
+Step 8: Access test page
+connect as second wallet
+select dataset
+attempt decrypt
+if authorized, show parsed neural data
+if unauthorized, show denied state
+
+Done when: one wallet succeeds, another fails.
+
+Step 9: Revocation test
+owner revokes access
+researcher retries
+decryption fails
+
+Done when: revoked access clearly stops working.
+
+Step 10: Polish
+better UI cards
+badges like Active / Revoked
+success/error toasts
+short explainer text for judges
+11. Parallel team split
+Person 1
+
+Frontend/UI
+
+pages
+components
+dataset cards
+upload/consent forms
+Person 2
+
+Wallet + Lit
+
+FCL
+access conditions
+grant/revoke behavior
+Person 3
+
+Storage + crypto
+
+encryption
+Storacha/Filecoin upload
+fetch by CID
+Person 4
+
+Demo/pitch/docs
+
+README
+architecture diagram
+project summary
+video script
+
+If only 2 people:
+
+Person A: frontend + wallet
+Person B: storage + Lit + crypto
+12. Acceptance criteria
+
+You are MVP-complete when all of these work:
+
+owner connects wallet
+owner uploads neural JSON
+file is encrypted before storage
+encrypted file is stored and CID is shown
+owner grants access to another wallet
+approved wallet decrypts successfully
+owner revokes access
+approved wallet can no longer decrypt
+
+If these work cleanly, you already have a strong hackathon demo.
+
+13. Demo script build checklist
+Scene 1
+
+Show problem:
+“Neural data is highly sensitive and users need revocable, sovereign control.”
+
+Scene 2
+
+Connect owner wallet.
+
+Scene 3
+
+Upload simulated neural dataset.
+
+Scene 4
+
+Show encrypted upload to Storacha/Filecoin and returned CID.
+
+Scene 5
+
+Grant researcher wallet access.
+
+Scene 6
+
+Switch to researcher wallet and decrypt successfully.
+
+Scene 7
+
+Switch back, revoke access.
+
+Scene 8
+
+Researcher tries again and gets denied.
+
+That is your story arc.
+
+14. Risks to avoid
+spending too long on Flow smart contracts
+trying to add live EEG hardware
+building a full backend unnecessarily
+overengineering permission logic
+adding ML before MVP works
+
+Keep the core demo working first.
+
+15. If time remains
+
+Add one of these, not all:
+
+Option A
+
+Expiry-based access
+
+Option B
+
+Purpose-bound consent, like “research only”
+
+Option C
+
+Flow event log for grant/revoke
+
+Option D
+
+Charts for focus/stress/alpha-beta values
+
+Best extra for judges: expiry + revoke.
+
+16. One-line README structure
+Problem
+Solution
+Stack
+Sponsor integrations
+Architecture
+Demo flow
+How to run
+Mock data format
+17. Suggested first tasks for today
+create the Next.js app
+set up Flow wallet connection with FCL
+create sample neural JSON files
+build upload + preview page
+add encryption helper
+upload encrypted file to Storacha/Filecoin
+
+That gets the backbone done fast.

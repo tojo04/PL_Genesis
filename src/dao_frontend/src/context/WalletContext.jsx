@@ -22,7 +22,8 @@ function configureFcl() {
     .put('app.detail.icon', 'https://placehold.co/128x128/png')
     .put('flow.network', network)
     .put('accessNode.api', accessNode)
-    .put('discovery.wallet', discoveryWallet);
+    .put('discovery.wallet', discoveryWallet)
+    .put('walletconnect.projectId', import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '');
 
   configured = true;
 }
