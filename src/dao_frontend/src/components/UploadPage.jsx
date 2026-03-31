@@ -36,10 +36,14 @@ function buildSimulatedEEG() {
 
 export default function UploadPage() {
   const { address } = useWallet();
-  const eegPayload = useMemo(() => buildSimulatedEEG(), []);
+  const defaultPayload = useMemo(() => buildSimulatedEEG(), []);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState(null);
+  const [payloadSource, setPayloadSource] = useState('simulated');
+  const [uploadedFileName, setUploadedFileName] = useState('');
+  const [uploadedPayload, setUploadedPayload] = useState(null);
+  const [fileError, setFileError] = useState(null);
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
     vaultName: 'NeuraVault Prime',
@@ -53,6 +57,8 @@ export default function UploadPage() {
     durationHours: 72,
     enableRevocation: true,
   });
+
+  const activePayload = uploadedPayload || defaultPayload;
 
   const steps = [
     { title: 'Vault Info', icon: Brain, description: 'Set vault identity and neural data type' },
@@ -104,7 +110,7 @@ export default function UploadPage() {
 
     try {
       const storageResponse = await uploadEncryptedPayload({
-        ...eegPayload,
+        ...activePayload,
         vaultName: form.vaultName,
         subjectId: form.subjectId,
         dataType: form.dataType,
@@ -136,6 +142,39 @@ export default function UploadPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const onJsonFileSelected = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    setUploadedFileName(file.name);
+    setFileError(null);
+
+    try {
+      const rawText = await file.text();
+      const parsed = JSON.parse(rawText);
+
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        throw new Error('JSON root must be an object');
+      }
+
+      setUploadedPayload(parsed);
+      setPayloadSource('uploaded-file');
+    } catch (error) {
+      setUploadedPayload(null);
+      setPayloadSource('simulated');
+      setFileError(error instanceof Error ? error.message : 'Invalid JSON file');
+    }
+  };
+
+  const useSimulatedPayload = () => {
+    setUploadedPayload(null);
+    setUploadedFileName('');
+    setFileError(null);
+    setPayloadSource('simulated');
   };
 
   const renderStepContent = () => {
@@ -198,11 +237,40 @@ export default function UploadPage() {
           <div>
             <div className="mb-8">
               <h2 className="text-3xl font-bold text-white mb-2 font-mono tracking-tight">DATA STREAM</h2>
-              <p className="text-gray-400 text-lg">Preview the EEG telemetry packet before encryption.</p>
+              <p className="text-gray-400 text-lg">Upload a JSON file or use the simulated EEG packet.</p>
+            </div>
+            <div className="mb-4 rounded-xl border border-gray-700 bg-gray-800/40 p-4">
+              <label className="block text-sm text-gray-300 font-mono font-semibold">
+                Neural JSON File
+                <input
+                  type="file"
+                  accept="application/json,.json"
+                  onChange={onJsonFileSelected}
+                  className="mt-2 block w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-gray-200"
+                />
+              </label>
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                <span className="rounded-md border border-gray-700 bg-gray-900 px-2 py-1 text-gray-300">
+                  Source: {payloadSource === 'uploaded-file' ? 'Uploaded JSON' : 'Simulated EEG'}
+                </span>
+                {uploadedFileName && (
+                  <span className="rounded-md border border-teal-700/40 bg-teal-500/10 px-2 py-1 text-teal-200">
+                    {uploadedFileName}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={useSimulatedPayload}
+                  className="rounded-md border border-gray-600 px-3 py-1 text-gray-200 hover:border-cyan-400"
+                >
+                  Use Simulated Data
+                </button>
+              </div>
+              {fileError && <p className="mt-3 text-sm text-rose-300">JSON parse error: {fileError}</p>}
             </div>
             <div className="rounded-xl border border-gray-700 bg-gray-800/40 p-4">
               <pre className="max-h-80 overflow-auto rounded-lg bg-gray-900 p-3 text-xs text-gray-300">
-                {JSON.stringify(eegPayload, null, 2)}
+                {JSON.stringify(activePayload, null, 2)}
               </pre>
             </div>
           </div>

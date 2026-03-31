@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import VaultDashboard from './components/VaultDashboard';
 import UploadPage from './components/UploadPage';
 import ConsentPage from './components/ConsentPage';
+import AccessPage from './components/AccessPage';
 import AccessLogPage from './components/AccessLogPage';
 import Navbar from './components/Navbar';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/vault" element={<VaultDashboard />} />
                 <Route path="/upload" element={<UploadPage />} />
                 <Route path="/consent" element={<ConsentPage />} />
+                <Route path="/access" element={<AccessPage />} />
                 <Route path="/access-log" element={<AccessLogPage />} />
               </Routes>
             </div>

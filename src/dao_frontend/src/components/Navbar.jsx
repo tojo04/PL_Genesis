@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Brain, Database, KeyRound, ShieldCheck, Wallet } from 'lucide-react';
+import { Brain, Database, KeyRound, ShieldCheck, Wallet, Lock } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
 const navItems = [
   { name: 'Vault', href: '/vault', icon: Database },
   { name: 'Upload', href: '/upload', icon: Brain },
   { name: 'Consent', href: '/consent', icon: KeyRound },
+  { name: 'Access', href: '/access', icon: Lock },
   { name: 'Access Log', href: '/access-log', icon: ShieldCheck },
 ];
 
