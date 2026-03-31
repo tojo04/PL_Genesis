@@ -70,7 +70,7 @@ const WelcomePopup = () => {
                 {/* Heading */}
                 <div className="space-y-2">
                   <h2 className="text-2xl font-bold text-white">
-                    Welcome to DAOVerse!
+                    Welcome to Cerebrum!
                   </h2>
                   <p className="text-slate-400">
                     You're all set to create and join DAOs.

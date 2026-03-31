@@ -1,5 +1,5 @@
 {
-  "name": "dao_frontend",
+  "name": "cerebrum_frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,11 +9,11 @@
     "clean:cache": "rimraf node_modules/.vite .vite-cache",
     "setup": "npm i",
     "start": "vite",
-    "prebuild": "echo 'Building NeuraVault frontend'",
+    "prebuild": "echo 'Building Cerebrum frontend'",
     "build": "vite build",
     "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\"",
     "test": "vitest run",
-    "demo:e2e": "node ./scripts/e2e-neuravault-demo.mjs"
+    "demo:e2e": "node ./scripts/e2e-cerebrum-demo.mjs"
   },
   "dependencies": {
     "@onflow/fcl": "^1.20.0",

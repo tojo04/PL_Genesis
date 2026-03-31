@@ -1,8 +1,8 @@
-Here’s a practical build sheet for NeuraVault.
+Here’s a practical build sheet for Cerebrum.
 
 It is scoped for a hackathon MVP and aligned with the Neurotech track requirement to use at least one sponsor API/SDK, with strong fit to secure neural data, sovereignty, and privacy-preserving collaboration.
 
-NeuraVault build sheet
+Cerebrum build sheet
 1. Project goal
 
 Build a web app where a user can:
@@ -143,7 +143,7 @@ Use 3–5 files like:
 Label them clearly as simulated neural telemetry.
 
 8. Folder structure
-neuravault/
+cerebrum/
   app/
     page.tsx
     dashboard/page.tsx

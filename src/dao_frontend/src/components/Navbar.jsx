@@ -24,7 +24,7 @@ export default function Navbar() {
             <Brain className="h-5 w-5 text-black" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-teal-300">NeuraVault</p>
+            <p className="text-sm font-semibold text-teal-300">Cerebrum</p>
             <p className="text-xs text-slate-400">Neural Data Wallet</p>
           </div>
         </Link>

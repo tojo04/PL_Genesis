@@ -1,4 +1,4 @@
-const INDEX_KEY = 'neuravault.metadata.index.v1';
+const INDEX_KEY = 'cerebrum.metadata.index.v1';
 let memoryIndex = [];
 
 function loadIndex() {

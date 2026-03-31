@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Cycles Management Script for DAOVerse (Updated for dfx cycles)
+# Cycles Management Script for Cerebrum (Updated for dfx cycles)
 set -e
 
-echo "💰 DAOVerse Cycles Management"
+echo "💰 Cerebrum Cycles Management"
 echo "============================="
 
 # Color codes
@@ -35,7 +35,7 @@ fi
 # Check canister cycles
 echo -e "${BLUE}🔍 Checking canister cycles...${NC}"
 
-CANISTERS=("dao_backend" "governance" "staking" "treasury" "proposals" "assets" "dao_frontend")
+CANISTERS=("cerebrum_backend" "governance" "staking" "treasury" "proposals" "assets" "cerebrum_frontend")
 
 for canister in "${CANISTERS[@]}"; do
     CANISTER_ID=$(dfx canister id $canister --network $NETWORK 2>/dev/null || echo "")

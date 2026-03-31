@@ -24,7 +24,7 @@ export async function uploadEncryptedPayload(payload) {
   const encrypted = await encryptJsonWithAesGcm(payload);
 
   const envelope = {
-    version: 'neuravault-envelope-v1',
+    version: 'cerebrum-envelope-v1',
     algorithm: encrypted.algorithm,
     iv: encrypted.iv,
     ciphertext: encrypted.ciphertext,
@@ -36,7 +36,7 @@ export async function uploadEncryptedPayload(payload) {
   });
 
   const client = createStorageClient();
-  const cid = await client.put([new File([blob], 'neuravault-record.json')], {
+  const cid = await client.put([new File([blob], 'cerebrum-record.json')], {
     wrapWithDirectory: false,
   });
 

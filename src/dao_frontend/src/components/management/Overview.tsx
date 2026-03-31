@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { DAO } from '../../types/dao';
 import { useActors } from '../../context/ActorContext';
-import type { Activity as ActivityRecord } from '@declarations/dao_backend/dao_backend.did';
+import type { Activity as ActivityRecord } from '@declarations/cerebrum_backend/cerebrum_backend.did';
 
 const Overview: React.FC = () => {
   const { dao } = useOutletContext<{ dao: DAO }>();

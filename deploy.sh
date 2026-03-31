@@ -17,13 +17,13 @@ sleep 5
 
 # Deploy base canisters first (no dependencies)
 echo "🏗️ Deploying base canisters..."
-dfx deploy dao_backend 
-dfx deploy dao_registry
-dfx deploy dao_analytics
+dfx deploy cerebrum_backend 
+dfx deploy cerebrum_registry
+dfx deploy cerebrum_analytics
 dfx deploy staking
 
 # Get and verify canister IDs
-DAO_BACKEND_ID=$(dfx canister id dao_backend)
+DAO_BACKEND_ID=$(dfx canister id cerebrum_backend)
 STAKING_ID=$(dfx canister id staking)
 
 echo "Debug: DAO Backend ID: ${DAO_BACKEND_ID}"
@@ -115,8 +115,8 @@ dfx deploy internet_identity
 
 # Generate type declarations for backend canisters only (before frontend)
 echo "📋 Generating backend type declarations..."
-dfx generate dao_backend
-dfx generate dao_analytics
+dfx generate cerebrum_backend
+dfx generate cerebrum_analytics
 dfx generate governance  
 dfx generate staking
 dfx generate treasury
@@ -127,19 +127,19 @@ dfx generate icrc1_ledger
 
 # Copy declarations to frontend location for build
 echo "📋 Copying declarations to frontend location..."
-mkdir -p src/dao_frontend/src/declarations
-cp -r src/declarations/* src/dao_frontend/src/declarations/
+mkdir -p src/cerebrum_frontend/src/declarations
+cp -r src/declarations/* src/cerebrum_frontend/src/declarations/
 
 # Build frontend with generated declarations
 echo "🔨 Building frontend..."
-cd src/dao_frontend
+cd src/cerebrum_frontend
 npm install
 npm run build
 cd ../..
 
 # Deploy frontend canister
 echo "🌐 Deploying frontend..."
-dfx deploy dao_frontend
+dfx deploy cerebrum_frontend
 
 # Generate all declarations 
 echo "📋 Generating all type declarations..."
@@ -152,6 +152,6 @@ echo "⚙️ Updating frontend environment variables..."
 echo "✨ Deployment complete!"
 echo ""
 echo "🎯 Next steps:"
-echo "1. Frontend will be available at: http://localhost:4943/?canisterId=$(dfx canister id dao_frontend)"
-echo "2. Start frontend development server: cd src/dao_frontend && npm run dev"
+echo "1. Frontend will be available at: http://localhost:4943/?canisterId=$(dfx canister id cerebrum_frontend)"
+echo "2. Start frontend development server: cd src/cerebrum_frontend && npm run dev"
 echo "3. Environment variables have been generated in .env"

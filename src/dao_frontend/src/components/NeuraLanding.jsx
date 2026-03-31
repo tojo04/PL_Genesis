@@ -36,7 +36,7 @@ export default function NeuraLanding() {
               Own, share, and revoke neural data with programmable consent
             </h1>
             <p className="mt-5 max-w-xl text-slate-300">
-              NeuraVault stores encrypted EEG-style telemetry on decentralized storage while Lit Protocol
+              Cerebrum stores encrypted EEG-style telemetry on decentralized storage while Lit Protocol
               enforces who can decrypt, for what purpose, and until when.
             </p>
 

@@ -24,7 +24,7 @@ log_error() {
   printf "%b%s%b\n" "${RED}" "$1" "${NC}";
 }
 
-log_info "Deploying DAOVerse to IC Mainnet"
+log_info "Deploying Cerebrum to IC Mainnet"
 printf "==================================\n\n"
 
 CURRENT_IDENTITY=$(dfx identity whoami)
@@ -59,17 +59,17 @@ else
 fi
 
 log_info "Deploying backend canisters..."
-dfx deploy dao_backend --network ic
-dfx deploy dao_registry --network ic
-dfx deploy dao_analytics --network ic
+dfx deploy cerebrum_backend --network ic
+dfx deploy cerebrum_registry --network ic
+dfx deploy cerebrum_analytics --network ic
 dfx deploy staking --network ic
 dfx deploy treasury --network ic
 dfx deploy proposals --network ic
 dfx deploy assets --network ic
 
-DAO_BACKEND_ID=$(dfx canister id dao_backend --network ic)
-DAO_REGISTRY_ID=$(dfx canister id dao_registry --network ic)
-DAO_ANALYTICS_ID=$(dfx canister id dao_analytics --network ic)
+DAO_BACKEND_ID=$(dfx canister id cerebrum_backend --network ic)
+DAO_REGISTRY_ID=$(dfx canister id cerebrum_registry --network ic)
+DAO_ANALYTICS_ID=$(dfx canister id cerebrum_analytics --network ic)
 STAKING_ID=$(dfx canister id staking --network ic)
 TREASURY_ID=$(dfx canister id treasury --network ic)
 
@@ -146,9 +146,9 @@ log_success "Backend canisters deployed"
 log_info "Updating environment variables with deployed canister IDs..."
 cat > .env.production <<EOF
 # Production Environment Variables
-VITE_CANISTER_ID_DAO_BACKEND=${DAO_BACKEND_ID}
-VITE_CANISTER_ID_DAO_REGISTRY=${DAO_REGISTRY_ID}
-VITE_CANISTER_ID_DAO_ANALYTICS=${DAO_ANALYTICS_ID}
+VITE_CANISTER_ID_CEREBRUM_BACKEND=${DAO_BACKEND_ID}
+VITE_CANISTER_ID_CEREBRUM_REGISTRY=${DAO_REGISTRY_ID}
+VITE_CANISTER_ID_CEREBRUM_ANALYTICS=${DAO_ANALYTICS_ID}
 VITE_CANISTER_ID_GOVERNANCE=${GOVERNANCE_ID}
 VITE_CANISTER_ID_STAKING=${STAKING_ID}
 VITE_CANISTER_ID_TREASURY=${TREASURY_ID}
@@ -161,11 +161,11 @@ VITE_DFX_NETWORK=ic
 VITE_HOST=https://icp0.io
 EOF
 
-cat > src/dao_frontend/.env.production <<EOF
+cat > src/cerebrum_frontend/.env.production <<EOF
 # Production environment variables for mainnet deployment
-VITE_CANISTER_ID_DAO_BACKEND=${DAO_BACKEND_ID}
-VITE_CANISTER_ID_DAO_REGISTRY=${DAO_REGISTRY_ID}
-VITE_CANISTER_ID_DAO_ANALYTICS=${DAO_ANALYTICS_ID}
+VITE_CANISTER_ID_CEREBRUM_BACKEND=${DAO_BACKEND_ID}
+VITE_CANISTER_ID_CEREBRUM_REGISTRY=${DAO_REGISTRY_ID}
+VITE_CANISTER_ID_CEREBRUM_ANALYTICS=${DAO_ANALYTICS_ID}
 VITE_CANISTER_ID_GOVERNANCE=${GOVERNANCE_ID}
 VITE_CANISTER_ID_STAKING=${STAKING_ID}
 VITE_CANISTER_ID_TREASURY=${TREASURY_ID}
@@ -189,7 +189,7 @@ EOF
 log_success "Environment variables updated"
 
 log_info "Building frontend for production..."
-cd src/dao_frontend
+cd src/cerebrum_frontend
 if [ ! -d "node_modules" ]; then
   log_info "Installing frontend dependencies..."
   npm install
@@ -213,14 +213,14 @@ log_success "Frontend build completed successfully"
 cd ../..
 
 log_info "Deploying frontend canister..."
-dfx deploy dao_frontend --network ic
+dfx deploy cerebrum_frontend --network ic
 
 log_success "Deployment completed successfully!"
 
-DAO_FRONTEND_ID=$(dfx canister id dao_frontend --network ic)
+DAO_FRONTEND_ID=$(dfx canister id cerebrum_frontend --network ic)
 
 printf "\n"
-log_info "Your DAOVerse is now live on IC Mainnet!"
+log_info "Your Cerebrum is now live on IC Mainnet!"
 printf "\nFrontend URL: https://${DAO_FRONTEND_ID}.icp0.io/\n"
 
 printf "Deployed Canister IDs:\n"

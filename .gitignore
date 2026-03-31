@@ -12,8 +12,8 @@
 
 # generated files
 **/declarations/
-!src/dao_frontend/src/declarations/
-!src/dao_frontend/src/declarations/**
+!src/cerebrum_frontend/src/declarations/
+!src/cerebrum_frontend/src/declarations/**
 
 # rust
 target/
@@ -31,12 +31,12 @@ dist/
 .env.local
 .env.*.local
 .env.production
-.env.mainnet#src/dao_frontend/.env.local
-src/dao_frontend/.env.production
+.env.mainnet#src/cerebrum_frontend/.env.local
+src/cerebrum_frontend/.env.production
 .env.new
 
 # Generated declarations
-src/dao_frontend/src/declarations/
+src/cerebrum_frontend/src/declarations/
 declarations/
 canister_ids.json
 mainnet_identity_backup.pem

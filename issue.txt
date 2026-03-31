@@ -1,7 +1,7 @@
 Why It Fails
 
-The backend canister keeps a single initialized flag and a single admin list; once one identity bootstraps it, every later initialize call short-circuits with “DAO already initialized,” so the new caller never gets added to adminPrincipals. See initialize in src/dao_backend/main.mo:257, where the first successful caller is stored and initialized := true.
-The launch flow in useDAOOperations.js swallows that “already initialized” error (handleAlreadyInitialized) and continues, so the next step still tries setCanisterReferences. That method checks isAdmin(msg.caller) before writing, and with the new II absent from the admin map it returns the “Only admins can modify canister references” error (src/dao_backend/main.mo:344).
+The backend canister keeps a single initialized flag and a single admin list; once one identity bootstraps it, every later initialize call short-circuits with “DAO already initialized,” so the new caller never gets added to adminPrincipals. See initialize in src/cerebrum_backend/main.mo:257, where the first successful caller is stored and initialized := true.
+The launch flow in useDAOOperations.js swallows that “already initialized” error (handleAlreadyInitialized) and continues, so the next step still tries setCanisterReferences. That method checks isAdmin(msg.caller) before writing, and with the new II absent from the admin map it returns the “Only admins can modify canister references” error (src/cerebrum_backend/main.mo:344).
 Because governance/staking/treasury/proposals references are meant to be set once globally, the code effectively expects a platform admin (the very first caller) to perform those writes. Any other II—even someone who should own another DAO—will hit the guard unless an existing admin explicitly grants them access.
 
 Implications

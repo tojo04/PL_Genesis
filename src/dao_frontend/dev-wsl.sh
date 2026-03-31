@@ -25,7 +25,7 @@ echo "   Local:   http://localhost:5173/"
 echo "   Network: http://$(hostname -I | awk '{print $1}'):5173/"
 echo ""
 echo "💡 If you still see permission errors, try running from WSL terminal:"
-echo "   cd /mnt/d/Desktop/Hackathons/WCHL/DAO-8\\ september/DAO_launcher_kit/src/dao_frontend"
+echo "   cd /mnt/d/Desktop/Hackathons/WCHL/DAO-8\\ september/DAO_launcher_kit/src/cerebrum_frontend"
 echo "   npm run dev:clean"
 echo ""
 

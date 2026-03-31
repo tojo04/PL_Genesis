@@ -2,7 +2,7 @@
 import DocsLayout from '../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Getting Started" description="Get started with DAO Launcher Kit">
+<DocsLayout title="Getting Started" description="Get started with Cerebrum">
   <article class="prose prose-invert max-w-none">
     <h1 class="text-4xl font-bold text-white mb-6">Getting Started</h1>
     
@@ -20,7 +20,7 @@ cd DAO_launcher_kit</code></pre>
 
     <h3 class="text-xl font-semibold text-cyan-400 mt-8 mb-4">2. Install Dependencies</h3>
     <pre class="bg-gray-900 border border-gray-800 rounded-lg p-4"><code class="text-gray-300">npm install
-cd src/dao_frontend && npm install && cd ../..</code></pre>
+cd src/cerebrum_frontend && npm install && cd ../..</code></pre>
 
     <h3 class="text-xl font-semibold text-cyan-400 mt-8 mb-4">3. Start Local IC Replica</h3>
     <pre class="bg-gray-900 border border-gray-800 rounded-lg p-4"><code class="text-gray-300">dfx start --clean --background</code></pre>
@@ -34,7 +34,7 @@ cd src/dao_frontend && npm install && cd ../..</code></pre>
     </p>
 
     <h3 class="text-xl font-semibold text-cyan-400 mt-8 mb-4">5. Start Frontend</h3>
-    <pre class="bg-gray-900 border border-gray-800 rounded-lg p-4"><code class="text-gray-300">cd src/dao_frontend
+    <pre class="bg-gray-900 border border-gray-800 rounded-lg p-4"><code class="text-gray-300">cd src/cerebrum_frontend
 npm run dev</code></pre>
 
     <p class="text-gray-300 mt-4">
@@ -47,7 +47,7 @@ npm run dev</code></pre>
       <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
         <h4 class="text-cyan-400 font-semibold mb-2">Core Canisters</h4>
         <ul class="text-gray-400 space-y-2">
-          <li>✅ <code class="text-cyan-400">dao_backend</code> - Main coordinator (user management, admin)</li>
+          <li>✅ <code class="text-cyan-400">cerebrum_backend</code> - Main coordinator (user management, admin)</li>
           <li>✅ <code class="text-cyan-400">governance</code> - Voting and proposal management</li>
           <li>✅ <code class="text-cyan-400">staking</code> - Token staking and rewards</li>
           <li>✅ <code class="text-cyan-400">treasury</code> - Multi-sig financial operations</li>
@@ -57,8 +57,8 @@ npm run dev</code></pre>
       <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
         <h4 class="text-cyan-400 font-semibold mb-2">Support Canisters</h4>
         <ul class="text-gray-400 space-y-2">
-          <li>✅ <code class="text-cyan-400">dao_registry</code> - Global DAO discovery</li>
-          <li>✅ <code class="text-cyan-400">dao_analytics</code> - Platform metrics</li>
+          <li>✅ <code class="text-cyan-400">cerebrum_registry</code> - Global DAO discovery</li>
+          <li>✅ <code class="text-cyan-400">cerebrum_analytics</code> - Platform metrics</li>
           <li>✅ <code class="text-cyan-400">proposals</code> - Proposal templates</li>
           <li>✅ <code class="text-cyan-400">assets</code> - File storage</li>
           <li>✅ <code class="text-cyan-400">icrc1_ledger</code> - Token standard</li>
@@ -113,7 +113,7 @@ dfx start --clean --background
       <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
         <h4 class="text-cyan-400 font-semibold mb-2">Frontend Build Errors</h4>
         <p class="text-gray-400 mb-2">Clear cache and rebuild:</p>
-        <pre class="bg-gray-950 rounded p-2 text-sm"><code>cd src/dao_frontend
+        <pre class="bg-gray-950 rounded p-2 text-sm"><code>cd src/cerebrum_frontend
 npm run clean:cache
 npm install
 npm run dev</code></pre>

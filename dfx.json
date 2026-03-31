@@ -1,41 +1,41 @@
 {
   "canisters": {
-    "dao_backend": {
-      "main": "src/dao_backend/main.mo",
+    "cerebrum_backend": {
+      "main": "src/cerebrum_backend/main.mo",
       "type": "motoko"
     },
-    "dao_registry": {
-      "main": "src/dao_backend/dao_registry/main.mo",
+    "cerebrum_registry": {
+      "main": "src/cerebrum_backend/cerebrum_registry/main.mo",
       "type": "motoko"
     },
     "governance": {
-      "main": "src/dao_backend/governance/main.mo",
+      "main": "src/cerebrum_backend/governance/main.mo",
       "type": "motoko",
       "dependencies": [
-        "dao_backend",
+        "cerebrum_backend",
         "staking",
-        "dao_registry"
+        "cerebrum_registry"
       ]
     },
     "staking": {
-      "main": "src/dao_backend/staking/main.mo",
+      "main": "src/cerebrum_backend/staking/main.mo",
       "type": "motoko"
     },
     "treasury": {
-      "main": "src/dao_backend/treasury/main.mo",
+      "main": "src/cerebrum_backend/treasury/main.mo",
       "type": "motoko"
     },
     "proposals": {
-      "main": "src/dao_backend/proposals/main.mo",
+      "main": "src/cerebrum_backend/proposals/main.mo",
       "type": "motoko"
     },
     "assets": {
-      "main": "src/dao_backend/assets/main.mo",
+      "main": "src/cerebrum_backend/assets/main.mo",
       "type": "motoko",
       "init": { "args": "(null, false)" }
     },
-    "dao_analytics": {
-      "main": "src/dao_backend/analytics/main.mo",
+    "cerebrum_analytics": {
+      "main": "src/cerebrum_backend/analytics/main.mo",
       "type": "motoko"
     },
     "icrc1_ledger": {
@@ -43,24 +43,24 @@
       "wasm": "third_party/icrc1/ic-icrc1-ledger.wasm.gz",
       "candid": "third_party/icrc1/ledger.did"
     },
-    "dao_frontend": {
+    "cerebrum_frontend": {
       "dependencies": [
-        "dao_backend",
-        "dao_registry",
+        "cerebrum_backend",
+        "cerebrum_registry",
         "governance",
         "staking",
         "treasury",
         "proposals",
         "assets",
-        "dao_analytics"
+        "cerebrum_analytics"
       ],
       "source": [
-        "src/dao_frontend/dist"
+        "src/cerebrum_frontend/dist"
       ],
       "type": "assets",
-      "workspace": "dao_frontend",
+      "workspace": "cerebrum_frontend",
       "declarations": {
-        "output": "src/dao_frontend/src/declarations"
+        "output": "src/cerebrum_frontend/src/declarations"
       }
     },
     "internet_identity": {

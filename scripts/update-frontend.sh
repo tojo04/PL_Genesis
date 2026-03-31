@@ -44,9 +44,9 @@ echo "Assets:          ${ASSETS_ID}"
 echo -e "${BLUE}🔧 Updating environment variables...${NC}"
 
 # Update the frontend .env.production file
-cat > src/dao_frontend/.env.production << EOF
+cat > src/cerebrum_frontend/.env.production << EOF
 # Production environment variables for mainnet deployment
-VITE_CANISTER_ID_DAO_BACKEND=$DAO_BACKEND_ID
+VITE_CANISTER_ID_CEREBRUM_BACKEND=$DAO_BACKEND_ID
 VITE_CANISTER_ID_GOVERNANCE=$GOVERNANCE_ID
 VITE_CANISTER_ID_STAKING=$STAKING_ID
 VITE_CANISTER_ID_TREASURY=$TREASURY_ID
@@ -70,7 +70,7 @@ echo -e "${GREEN}✅ Environment variables updated${NC}"
 
 # Build frontend for production
 echo -e "${BLUE}🏗️ Building frontend for production...${NC}"
-cd src/dao_frontend
+cd src/cerebrum_frontend
 
 # Install dependencies if needed
 if [ ! -d "node_modules" ]; then
@@ -107,15 +107,15 @@ cd ../..
 
 # Deploy frontend canister
 echo -e "${BLUE}🚀 Deploying frontend canister...${NC}"
-dfx deploy dao_frontend --network ic
+dfx deploy cerebrum_frontend --network ic
 
 echo -e "${GREEN}✅ Frontend deployment completed successfully!${NC}"
 
 # Get frontend canister ID
-DAO_FRONTEND_ID=$(dfx canister id dao_frontend --network ic)
+DAO_FRONTEND_ID=$(dfx canister id cerebrum_frontend --network ic)
 
 echo ""
-echo -e "${BLUE}🌐 Your DAOVerse frontend has been updated!${NC}"
+echo -e "${BLUE}🌐 Your Cerebrum frontend has been updated!${NC}"
 echo ""
 echo "🎯 Frontend URL: https://${DAO_FRONTEND_ID}.icp0.io/"
 echo ""

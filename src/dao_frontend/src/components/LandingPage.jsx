@@ -79,7 +79,7 @@ const LandingPage = () => {
 
   const heroSlides = [
     {
-      title: "NEURAVAULT",
+      title: "CEREBRUM",
       subtitle: "OWN YOUR NEURAL DATA",
       description: "A privacy-preserving wallet for encrypted EEG and biometric records"
     },

@@ -18,7 +18,7 @@ function configureFcl() {
 
   fcl
     .config()
-    .put('app.detail.title', 'NeuraVault')
+    .put('app.detail.title', 'Cerebrum')
     .put('app.detail.icon', 'https://placehold.co/128x128/png')
     .put('flow.network', network)
     .put('accessNode.api', accessNode)

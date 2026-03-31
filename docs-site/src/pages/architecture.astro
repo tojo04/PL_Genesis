@@ -2,12 +2,12 @@
 import DocsLayout from '../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Architecture" description="Understanding DAO Launcher Kit Architecture">
+<DocsLayout title="Architecture" description="Understanding Cerebrum Architecture">
   <article class="prose prose-invert max-w-none">
     <h1 class="text-4xl font-bold text-white mb-6">Architecture Overview</h1>
     
     <p class="text-xl text-gray-300 mb-8">
-      DAO Launcher Kit uses a sophisticated multi-canister microservices architecture 
+      Cerebrum uses a sophisticated multi-canister microservices architecture 
       with 9 specialized canisters on the Internet Computer.
     </p>
 
@@ -23,7 +23,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
 
     <div class="space-y-6">
       <div class="bg-gray-900 border-l-4 border-cyan-500 rounded-lg p-6">
-        <h3 class="text-xl font-semibold text-cyan-400 mb-3">dao_backend (Coordinator)</h3>
+        <h3 class="text-xl font-semibold text-cyan-400 mb-3">cerebrum_backend (Coordinator)</h3>
         <p class="text-gray-300 mb-4">
           The central coordination hub managing users, permissions, and orchestrating 
           communication between other canisters.
@@ -47,7 +47,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
         <div class="bg-gray-950 rounded-lg p-4">
           <h4 class="text-white font-semibold mb-2">Dependencies:</h4>
           <ul class="text-gray-400 space-y-1 text-sm list-disc list-inside">
-            <li><strong>dao_backend:</strong> User authentication and membership verification</li>
+            <li><strong>cerebrum_backend:</strong> User authentication and membership verification</li>
             <li><strong>staking:</strong> Voting power calculation based on staked tokens</li>
           </ul>
         </div>
@@ -90,7 +90,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
 
     <div class="grid md:grid-cols-2 gap-4">
       <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
-        <h3 class="text-lg font-semibold text-cyan-400 mb-2">dao_registry</h3>
+        <h3 class="text-lg font-semibold text-cyan-400 mb-2">cerebrum_registry</h3>
         <p class="text-gray-400 text-sm mb-3">
           Global DAO discovery system enabling search, categorization, and trending DAOs across the platform.
         </p>
@@ -101,7 +101,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
       </div>
 
       <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
-        <h3 class="text-lg font-semibold text-cyan-400 mb-2">dao_analytics</h3>
+        <h3 class="text-lg font-semibold text-cyan-400 mb-2">cerebrum_analytics</h3>
         <p class="text-gray-400 text-sm mb-3">
           Tracks platform-wide metrics including time-series data, growth rates, and governance statistics.
         </p>
@@ -151,7 +151,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
       <p class="text-gray-300 mb-4">
         Canisters communicate using typed actor interfaces in Motoko:
       </p>
-      <pre class="bg-gray-950 rounded-lg p-4 overflow-x-auto"><code class="text-gray-300">// Example: dao_backend calling staking canister
+      <pre class="bg-gray-950 rounded-lg p-4 overflow-x-auto"><code class="text-gray-300">// Example: cerebrum_backend calling staking canister
 let stakingActor = actor("canister:staking") : StakingService;
 let votingPower = await stakingActor.getVotingPower(userPrincipal);</code></pre>
       
@@ -192,8 +192,8 @@ system func postupgrade() &#123;
         Correct deployment order is critical due to dependencies:
       </p>
       <ol class="text-gray-300 space-y-2 list-decimal list-inside">
-        <li><strong>Base canisters:</strong> dao_backend, dao_registry, dao_analytics, staking, treasury, proposals, assets</li>
-        <li><strong>Governance:</strong> Requires dao_backend and staking Principal IDs as init args</li>
+        <li><strong>Base canisters:</strong> cerebrum_backend, cerebrum_registry, cerebrum_analytics, staking, treasury, proposals, assets</li>
+        <li><strong>Governance:</strong> Requires cerebrum_backend and staking Principal IDs as init args</li>
         <li><strong>ICRC1 Ledger:</strong> Token standard with initialization parameters</li>
         <li><strong>Wire connections:</strong> Set ledger canister ID in staking</li>
         <li><strong>Frontend:</strong> Generate declarations, build, and deploy</li>

@@ -43,7 +43,7 @@ function validateEnv() {
 
   if (missing.length > 0) {
     throw new Error(
-      `Missing required environment values: ${missing.join(', ')}. Set them in src/dao_frontend/.env`
+      `Missing required environment values: ${missing.join(', ')}. Set them in src/cerebrum_frontend/.env`
     );
   }
 }
@@ -116,7 +116,7 @@ async function run() {
     console.log('   Expected denial:', error.message);
   }
 
-  console.log('\nEnd-to-end NeuraVault demo complete.');
+  console.log('\nEnd-to-end Cerebrum demo complete.');
 }
 
 run().catch((error) => {

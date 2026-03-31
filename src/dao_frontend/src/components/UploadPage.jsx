@@ -46,7 +46,7 @@ export default function UploadPage() {
   const [fileError, setFileError] = useState(null);
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
-    vaultName: 'NeuraVault Prime',
+    vaultName: 'Cerebrum Prime',
     subjectId: 'subject-001',
     dataType: 'EEG',
     qualityScore: 'high',

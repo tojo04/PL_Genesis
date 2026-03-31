@@ -25,7 +25,7 @@ log_error() {
 }
 
 echo
-log_info "Deploying DAOVerse to DFINITY Testnet"
+log_info "Deploying Cerebrum to DFINITY Testnet"
 printf "==================================\n\n"
 
 # Allow overriding network (default: testnet) and host
@@ -40,15 +40,15 @@ CURRENT_IDENTITY=$(dfx identity whoami)
 log_info "Current identity: ${CURRENT_IDENTITY}"
 
 log_info "Deploying backend canisters to network: ${NETWORK}"
-dfx deploy dao_backend --network "${NETWORK}"
-dfx deploy dao_registry --network "${NETWORK}"
-dfx deploy dao_analytics --network "${NETWORK}"
+dfx deploy cerebrum_backend --network "${NETWORK}"
+dfx deploy cerebrum_registry --network "${NETWORK}"
+dfx deploy cerebrum_analytics --network "${NETWORK}"
 dfx deploy staking --network "${NETWORK}"
 dfx deploy treasury --network "${NETWORK}"
 dfx deploy proposals --network "${NETWORK}"
 dfx deploy assets --network "${NETWORK}"
 
-DAO_BACKEND_ID=$(dfx canister id dao_backend --network "${NETWORK}")
+DAO_BACKEND_ID=$(dfx canister id cerebrum_backend --network "${NETWORK}")
 STAKING_ID=$(dfx canister id staking --network "${NETWORK}")
 TREASURY_ID=$(dfx canister id treasury --network "${NETWORK}")
 
@@ -105,12 +105,12 @@ fi
 
 log_info "Generating declarations and copying to frontend..."
 dfx generate || true
-mkdir -p src/dao_frontend/src/declarations
-cp -r src/declarations/* src/dao_frontend/src/declarations/ || true
+mkdir -p src/cerebrum_frontend/src/declarations
+cp -r src/declarations/* src/cerebrum_frontend/src/declarations/ || true
 
 log_info "Building frontend (optional - set SKIP_BUILD=1 to skip)..."
 if [ "${SKIP_BUILD:-0}" != "1" ]; then
-  pushd src/dao_frontend > /dev/null
+  pushd src/cerebrum_frontend > /dev/null
   if [ ! -d node_modules ]; then
     npm install
   fi
@@ -121,23 +121,23 @@ else
 fi
 
 log_info "Deploying frontend canister..."
-dfx deploy dao_frontend --network "${NETWORK}" || log_warn "Frontend deploy failed"
+dfx deploy cerebrum_frontend --network "${NETWORK}" || log_warn "Frontend deploy failed"
 
-log_info "Writing testnet environment files (.env.testnet and src/dao_frontend/.env.testnet)"
-DAO_REGISTRY_ID=$(dfx canister id dao_registry --network "${NETWORK}")
-DAO_ANALYTICS_ID=$(dfx canister id dao_analytics --network "${NETWORK}")
+log_info "Writing testnet environment files (.env.testnet and src/cerebrum_frontend/.env.testnet)"
+DAO_REGISTRY_ID=$(dfx canister id cerebrum_registry --network "${NETWORK}")
+DAO_ANALYTICS_ID=$(dfx canister id cerebrum_analytics --network "${NETWORK}")
 GOVERNANCE_ID=$(dfx canister id governance --network "${NETWORK}")
 PROPOSALS_ID=$(dfx canister id proposals --network "${NETWORK}")
 ASSETS_ID=$(dfx canister id assets --network "${NETWORK}")
-DAO_FRONTEND_ID=$(dfx canister id dao_frontend --network "${NETWORK}")
+DAO_FRONTEND_ID=$(dfx canister id cerebrum_frontend --network "${NETWORK}")
 INTERNET_IDENTITY_ID=$(dfx canister id internet_identity --network "${NETWORK}" 2>/dev/null || echo "")
 LEDGER_ID=$(dfx canister id icrc1_ledger --network "${NETWORK}" 2>/dev/null || echo "")
 
 cat > .env.testnet <<EOF
 # Testnet Environment Variables
-VITE_CANISTER_ID_DAO_BACKEND=${DAO_BACKEND_ID}
-VITE_CANISTER_ID_DAO_REGISTRY=${DAO_REGISTRY_ID}
-VITE_CANISTER_ID_DAO_ANALYTICS=${DAO_ANALYTICS_ID}
+VITE_CANISTER_ID_CEREBRUM_BACKEND=${DAO_BACKEND_ID}
+VITE_CANISTER_ID_CEREBRUM_REGISTRY=${DAO_REGISTRY_ID}
+VITE_CANISTER_ID_CEREBRUM_ANALYTICS=${DAO_ANALYTICS_ID}
 VITE_CANISTER_ID_GOVERNANCE=${GOVERNANCE_ID}
 VITE_CANISTER_ID_STAKING=${STAKING_ID}
 VITE_CANISTER_ID_TREASURY=${TREASURY_ID}
@@ -150,11 +150,11 @@ VITE_DFX_NETWORK=${NETWORK}
 VITE_HOST=${VITE_HOST}
 EOF
 
-cat > src/dao_frontend/.env.testnet <<EOF
+cat > src/cerebrum_frontend/.env.testnet <<EOF
 # Frontend Testnet environment variables
-VITE_CANISTER_ID_DAO_BACKEND=${DAO_BACKEND_ID}
-VITE_CANISTER_ID_DAO_REGISTRY=${DAO_REGISTRY_ID}
-VITE_CANISTER_ID_DAO_ANALYTICS=${DAO_ANALYTICS_ID}
+VITE_CANISTER_ID_CEREBRUM_BACKEND=${DAO_BACKEND_ID}
+VITE_CANISTER_ID_CEREBRUM_REGISTRY=${DAO_REGISTRY_ID}
+VITE_CANISTER_ID_CEREBRUM_ANALYTICS=${DAO_ANALYTICS_ID}
 VITE_CANISTER_ID_GOVERNANCE=${GOVERNANCE_ID}
 VITE_CANISTER_ID_STAKING=${STAKING_ID}
 VITE_CANISTER_ID_TREASURY=${TREASURY_ID}
@@ -181,4 +181,4 @@ printf "Assets:          %s\n" "${ASSETS_ID}"
 printf "Ledger:          %s\n" "${LEDGER_ID}"
 printf "Frontend:        %s\n" "${DAO_FRONTEND_ID}"
 
-log_info "You can now build or run the frontend against testnet using src/dao_frontend/.env.testnet"
+log_info "You can now build or run the frontend against testnet using src/cerebrum_frontend/.env.testnet"

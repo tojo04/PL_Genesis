@@ -5,7 +5,7 @@
 
 set -e
 
-echo "🚀 DAO Launcher Kit - Documentation Deployment"
+echo "🚀 Cerebrum - Documentation Deployment"
 echo "=============================================="
 echo ""
 
