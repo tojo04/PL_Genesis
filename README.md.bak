@@ -1,0 +1,508 @@
+# Cerebrum - Secure Neural Data Sharing
+
+[![Flow Blockchain](https://img.shields.io/badge/Blockchain-Flow-00EF8B?style=flat-square)](https://flow.com/)
+[![React](https://img.shields.io/badge/Frontend-React%2018-61DAFB?style=flat-square)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Build%20Tool-Vite-646CFF?style=flat-square)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Styling-TailwindCSS-38B2AC?style=flat-square)](https://tailwindcss.com/)
+[![Lit Protocol](https://img.shields.io/badge/Access%20Control-Lit%20Protocol-654EA3?style=flat-square)](https://litprotocol.com/)
+[![Storacha](https://img.shields.io/badge/Storage-Storacha%2FFilecoin-0A9F51?style=flat-square)](https://storacha.web3.storage/)
+
+A secure web application for privacy-preserving neurotechnology data sharing. Upload neural datasets securely, encrypt them client-side, store them on decentralized storage (Storacha/Filecoin), and control access through wallet-based permissions with Lit Protocol. Grant or revoke access to other researchers while maintaining complete data sovereignty.
+
+## 🌐 Live Deployment
+
+The application is deployed and accessible at the provided deployment URL.
+
+### Key Deployment Information
+- Uses Flow Testnet for wallet authentication
+- Data encrypted with Lit Protocol before storage
+- Files stored on Storacha (Web3.Storage) backed by Filecoin
+## Key Features
+
+### Core Functionality
+- **Secure Upload**: Streamlined neural data file upload with validation and preview
+- **Client-Side Encryption**: All data encrypted with Lit Protocol before transmission
+- **Decentralized Storage**: Files stored on Storacha/Filecoin for permanent, censorship-resistant access
+- **Wallet Authentication**: Flow wallet integration for secure user authentication
+- **Access Control**: Grant and revoke access to specific wallet addresses with optional expiry
+- **Permission Management**: Fine-grained control over who can access your neural datasets
+
+### Data Management
+- **Dashboard**: View all uploaded datasets with metadata and status badges
+- **Activity Tracking**: Monitor who accessed your data and when
+- **Data Preview**: View parsed neural data before encryption and upload
+- **Revoke Access**: Instantly revoke permissions to previously-granted wallets
+- **Access Logs**: Comprehensive activity history showing all access attempts
+
+### User Experience
+- **Modern Interface**: Clean, responsive design built with React 18 and TailwindCSS
+- **Wallet Integration**: Seamless Flow wallet connection and management
+- **Background Animations**: Engaging particle animations for visual appeal
+- **Mobile Responsive**: Optimized experience across desktop and mobile devices
+- **Toast Notifications**: Clear feedback on all user actions and errors
+
+## Technical Architecture
+
+### Frontend Application Structure
+```
+src/
+├── components/                 # React UI components
+│   ├── LandingPage.jsx        # Main landing page
+│   ├── VaultDashboard.jsx     # User dashboard
+│   ├── UploadPage.jsx         # File upload interface
+│   ├── ConsentPage.jsx        # Access permission management
+│   ├── AccessPage.jsx         # Access verification and decryption
+│   ├── AccessLogPage.jsx      # Activity history and logs
+│   ├── MetricsPage.jsx        # Usage analytics
+│   ├── Navbar.jsx             # Navigation component
+│   ├── FlowConnectGate.jsx    # Wallet authentication gate
+│   ├── ErrorBoundary.jsx      # Error handling
+│   ├── BackgroundParticles.jsx # Visual background effects
+│   ├── analytics/             # Analytics components
+│   │   └── [chart components]
+│   ├── management/            # Dashboard management components
+│   │   └── [admin components]
+│   └── modals/                # Modal dialogs
+│       ├── BaseModal.tsx
+│       ├── DepositModal.tsx
+│       └── [other modals]
+├── context/                   # React context
+│   └── WalletContext.jsx      # Wallet state management
+├── services/                  # Business logic
+│   ├── litAccess.js          # Lit Protocol integration
+│   ├── storachaClient.js     # Storacha/Filecoin integration
+│   ├── cryptoAesGcm.js       # Encryption utilities
+│   ├── metadataIndex.js      # Metadata management
+│   └── env.js                # Environment configuration
+├── main.jsx                  # React entry point
+├── App.jsx                   # Main app component
+└── index.css                 # Global styles
+```
+
+### External Services Integration
+- **Flow Wallet**: User authentication and account management
+- **Lit Protocol**: Client-side encryption and decryption operations
+- **Storacha/Web3.Storage**: Decentralized file storage (Filecoin-backed)
+- **ICLighthouse**: Analytics and metrics tracking (optional)
+
+## Quick Start
+
+### Prerequisites
+- **Node.js**: Version 16.0.0 or higher
+- **npm**: Version 7.0.0 or higher
+- **Git**: For version control
+- **Flow Wallet**: Browser extension or account at flow.com
+- **Testnet FLOW tokens**: For transaction fees (if testing on testnet)
+
+### Installation and Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/cerebrum.git
+   cd Cerebrum
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables:**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Update `.env.local` with your configuration:
+   ```env
+   VITE_FLOW_ACCESS_NODE=https://rest-testnet.onflow.org
+   VITE_FLOW_DISCOVERY_WALLET=https://flow-wallet-testnet.blocto.app/authn
+   VITE_LIT_CHAIN=filecoinTestnet
+   VITE_WEB3_STORAGE_TOKEN=your_web3_storage_token
+   VITE_FCL_NETWORK=testnet
+   ```
+
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the application:**
+   - **Frontend**: http://localhost:5173
+   - Default port may vary; check terminal output
+
+### Usage Workflow
+
+1. **Connect Your Wallet**
+   - Click "Connect Wallet" on the landing page
+   - Approve the Flow Wallet connection
+   - Wallet address will appear in the navbar
+
+2. **Upload Neural Data**
+   - Navigate to Dashboard → Upload
+   - Select a JSON neural data file
+   - Preview the parsed data
+   - Click "Encrypt & Upload"
+   - System encrypts with Lit Protocol and stores on Storacha
+
+3. **Grant Access**
+   - In Dashboard, select a dataset
+   - Click "Manage Consent"
+   - Enter a wallet address to grant access
+   - Optionally set expiry date
+   - Click "Grant Access"
+
+4. **Verify Access (as Recipient)**
+   - Connect as the recipient wallet
+   - Navigate to Access page
+   - Select the shared dataset
+   - System decrypts with Lit Protocol if authorized
+   - View or download decrypted data
+
+5. **Revoke Access**
+   - Return to your dataset
+   - Click "Revoke" next to the wallet address
+   - Access immediately denied for that wallet
+   - Activity log shows revocation event
+
+## Development
+
+### Environment Configuration
+
+**Local Development** (`.env.local`):
+```env
+VITE_FLOW_ACCESS_NODE=https://rest-testnet.onflow.org
+VITE_FLOW_DISCOVERY_WALLET=https://flow-wallet-testnet.blocto.app/authn
+VITE_LIT_CHAIN=filecoinTestnet
+VITE_WEB3_STORAGE_TOKEN=your_token_here
+VITE_FCL_NETWORK=testnet
+NODE_ENV=development
+```
+
+**Production** (`.env.production`):
+```env
+VITE_FLOW_ACCESS_NODE=https://rest-mainnet.onflow.org
+VITE_FLOW_DISCOVERY_WALLET=https://flow-wallet.blocto.app/authn
+VITE_LIT_CHAIN=filecoinMainnet
+VITE_WEB3_STORAGE_TOKEN=your_production_token
+VITE_FCL_NETWORK=mainnet
+NODE_ENV=production
+VITE_BUILD_MODE=production
+```
+
+### Essential Development Commands
+
+```bash
+# Development
+npm run dev                      # Start development server (port 5173)
+npm run build                    # Build for production
+npm run format                   # Format code with Prettier
+npm test                         # Run tests with Vitest
+npm run demo:e2e                # Run E2E demo script
+
+# Cleaning
+npm run clean:cache             # Clear build cache
+npm run dev:clean               # Clean cache and start dev server
+```
+
+### Project Scripts
+
+All available npm scripts from `package.json`:
+- `npm run dev` - Start Vite dev server on port 5173
+- `npm run dev:clean` - Clean cache and start dev
+- `npm run clean:cache` - Remove vite cache and temp files
+- `npm run setup` - Install dependencies
+- `npm run start` - Start Vite server
+- `npm run build` - Build for production
+- `npm run format` - Format code with Prettier
+- `npm test` - Run Vitest tests
+- `npm run demo:e2e` - Run end-to-end demo
+
+### Configuration Files
+
+Key configuration files in the project:
+- `vite.config.js`: Build tool configuration
+- `tailwind.config.js`: Styling framework setup
+- `postcss.config.cjs`: CSS processing
+- `tsconfig.json`: TypeScript configuration
+- `package.json`: Dependencies and scripts
+- `.env.local`: Local environment variables
+- `.env.production`: Production environment variables
+
+## Security Features
+
+- **Client-Side Encryption**: All data encrypted with Lit Protocol before transmission—server never sees plaintext
+- **Wallet Authentication**: Flow Wallet integration ensures secure, decentralized identity
+- **Decentralized Storage**: Files stored on Filecoin via Storacha—no single point of failure
+- **Access Control**: Smart contract-based permissions using Lit Protocol conditions
+- **Revocable Access**: Instant revocation of permissions without data re-encryption
+- **Activity Audit Trail**: Complete log of all access attempts and management actions
+
+## Technology Stack
+
+### Frontend Technologies
+- **React 18**: Modern UI library with concurrent features and hooks
+- **Vite**: Lightning-fast build tool and development server
+- **TailwindCSS**: Utility-first CSS framework for rapid UI development
+- **TypeScript**: Type-safe JavaScript with enhanced developer experience
+- **React Router**: Client-side routing for multi-page experience
+- **Lucide React**: Beautiful and customizable icon library
+
+### Blockchain & Web3 Technologies
+- **Flow Blockchain**: Layer-2 blockchain optimized for dApps
+- **FCL (Flow Client Library)**: Official Flow wallet/authentication SDK
+- **Lit Protocol**: Client-side encryption and decryption for data access control
+- **Storacha/Web3.Storage**: Decentralized file storage backed by Filecoin
+
+### Development & Build Tools
+- **Vite**: Modern build tool with HMR (Hot Module Replacement)
+- **PostCSS**: CSS processing with Tailwind support
+- **Prettier**: Code formatting for consistent style
+- **Vitest**: Fast unit testing framework
+- **ESLint**: Code linting and style enforcement
+
+## Deployment
+
+### 🚀 Mainnet Deployment (Production)
+
+**Cerebrum is already deployed and running on IC Mainnet!**
+
+To deploy your own instance to mainnet:
+
+```bash
+# Prerequisites: Ensure you have sufficient cycles (minimum 3.5T cycles)
+# Create and fund a mainnet identity
+dfx identity new mainnet_deploy
+dfx identity use mainnet_deploy
+
+# Fund your canister (you'll need to transfer cycles)
+# Visit: https://faucet.dfinity.org/ for testnet cycles
+# For mainnet: https://nns.ic0.app/ to manage cycles
+
+# Use the comprehensive mainnet deployment script
+./deploy-mainnet.sh
+```
+
+The `deploy-mainnet.sh` script will:
+- ✅ Check cycles balance and identity
+- ✅ Deploy all backend canisters in correct order
+- ✅ Update environment variables with deployed canister IDs
+- ✅ Build frontend with production configuration
+- ✅ Deploy frontend canister
+- ✅ Provide all access URLs and canister IDs
+
+**Alternative: Manual Mainnet Deployment**
+```bash
+# Deploy backend canisters first
+dfx deploy cerebrum_backend --network ic
+dfx deploy staking --network ic
+dfx deploy treasury --network ic
+dfx deploy proposals --network ic
+dfx deploy assets --network ic
+
+# Deploy governance with proper arguments
+dfx deploy governance --network ic --argument "(principal \"$(dfx canister id cerebrum_backend --network ic)\", principal \"$(dfx canister id staking --network ic)\")"
+
+# Update environment variables and build frontend
+cd src/cerebrum_frontend
+# Update .env.production with deployed canister IDs
+NODE_ENV=production npm run build -- --mode production
+
+# Deploy frontend
+cd ../..
+dfx deploy cerebrum_frontend --network ic
+```
+
+### 🔧 Local Development Deployment
+```bash
+# Full local setup using the deployment script
+./deploy.sh
+
+# Manual deployment steps
+dfx start --clean --background
+dfx deploy cerebrum_backend
+dfx deploy staking  
+dfx deploy governance --argument "(principal \"$(dfx canister id cerebrum_backend)\", principal \"$(dfx canister id staking)\")"
+dfx deploy treasury
+dfx deploy proposals
+dfx deploy assets
+dfx deploy cerebrum_frontend
+```
+
+
+### 🌐 Frontend Update Only (For Mainnet)
+
+If you need to update only the frontend on an existing mainnet deployment:
+
+```bash
+# Use the frontend update script
+./update-frontend.sh
+```
+
+This script will:
+- ✅ Read existing canister IDs from deployment
+- ✅ Update environment variables 
+- ✅ Rebuild frontend with production settings
+- ✅ Deploy updated frontend to mainnet
+
+### Environment Management
+```bash
+# Update environment variables after deployment
+./update-env.sh
+
+# Manual environment variable setup for different networks
+cp .env.development .env.local     # For local development
+cp .env.production .env.playground # For playground deployment
+```
+
+## Contributing
+
+We welcome contributions to Cerebrum! Here's how you can help:
+
+### Getting Started
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and test thoroughly
+4. Commit your changes: `git commit -am 'Add: description of your feature'`
+5. Push to the branch: `git push origin feature/your-feature-name`
+6. Submit a Pull Request with a clear description
+
+### Development Guidelines
+- Follow the existing code style and conventions
+- Write tests for new functionality
+- Update documentation as needed
+- Ensure all tests pass before submitting
+
+### Areas for Contribution
+- Frontend UI/UX improvements
+- Backend Motoko development
+- Documentation and tutorials
+- Testing and bug fixes
+- Security audits and improvements
+
+## Documentation and Resources
+
+### Project Documentation
+- **[Developer Guide](./docs/DEVELOPER_GUIDE.md)** - Comprehensive development workflow and best practices
+- **[API Documentation](./docs/API_DOCUMENTATION.md)** - Complete API reference and examples
+- **[User Guides](./docs/USER_GUIDES.md)** - End-user instructions and tutorials
+
+### Internet Computer Resources
+- [IC Developer Portal](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
+- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
+- [Internet Identity Documentation](https://internetcomputer.org/docs/current/tokenomics/identity-auth/what-is-ic-identity)
+- [Candid Interface Language](https://internetcomputer.org/docs/current/developer-docs/backend/candid/)
+
+### Framework Documentation
+- [React 18 Documentation](https://reactjs.org/docs/getting-started.html)
+- [Vite Build Tool](https://vitejs.dev/guide/)
+- [TailwindCSS Framework](https://tailwindcss.com/docs)
+- [Framer Motion](https://www.framer.com/motion/)
+
+## Troubleshooting
+
+### Common Development Issues
+
+**DFX and Replica Issues:**
+```bash
+# Replica won't start
+dfx stop
+dfx start --clean --background
+
+# Canister deployment fails
+dfx canister delete --all
+dfx deploy
+
+# Clear all local state
+rm -rf .dfx
+dfx start --clean --background
+```
+
+**Frontend Build Issues:**
+```bash
+# Node modules conflicts
+cd src/cerebrum_frontend
+rm -rf node_modules package-lock.json
+npm install
+
+# Environment variables not loaded
+source .env.local
+npm run dev
+
+# Type declaration issues
+dfx generate
+npm run build
+```
+
+**Authentication and Connection Issues:**
+- Clear browser cache and cookies
+- Try incognito/private browsing mode
+- Verify Internet Identity service is running
+- Check canister IDs in environment variables
+- Ensure local replica is running on correct port
+
+**Deployment Issues:**
+```bash
+# Check canister status (local)
+dfx canister status cerebrum_backend
+
+# Check canister status (mainnet)
+dfx canister status cerebrum_backend --network ic
+
+# Verify canister IDs
+dfx canister id --all
+dfx canister id --all --network ic
+
+# Update environment variables
+./update-env.sh
+
+# Redeploy frontend only (mainnet)
+./update-frontend.sh
+
+# Full mainnet redeployment
+./deploy-mainnet.sh
+```
+
+**Mainnet-Specific Issues:**
+```bash
+# Check cycles balance
+dfx cycles balance --network ic
+
+# Check identity
+dfx identity whoami
+dfx identity list
+
+# Verify canister controllers
+dfx canister info cerebrum_frontend --network ic
+
+# Update frontend with correct environment
+cd src/cerebrum_frontend
+NODE_ENV=production npm run build -- --mode production
+cd ../..
+dfx deploy cerebrum_frontend --network ic
+```
+
+### Getting Help
+- Check the [Issues](https://github.com/rxshil09/DAO_launcher_kit/issues) section
+- Review the comprehensive [Developer Guide](./docs/DEVELOPER_GUIDE.md)
+- Join the Internet Computer developer community
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- **DFINITY Foundation** for the Internet Computer platform and infrastructure
+- **React and Vite communities** for excellent development tools and documentation
+- **TailwindCSS team** for the utility-first CSS framework
+- **Motoko development team** for the smart contract programming language
+- **All contributors and community members** who help improve Cerebrum
+
+---
+
+**Cerebrum** - Democratizing DAO creation on the Internet Computer
+
+🌐 **Live on IC Mainnet**: [https://oz5vx-7qaaa-aaaah-qqgca-cai.icp0.io/](https://oz5vx-7qaaa-aaaah-qqgca-cai.icp0.io/)
+
+
+
